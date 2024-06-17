@@ -1,30 +1,27 @@
-require('dotenv').config();
 const nodemailer = require('nodemailer');
 
-async function sendEmail() {
-  
-    let transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS
-        }
-    });
+// Create a transporter object using the default SMTP transport
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'saaritha543@gmail.com', // Replace with your email
+    pass: 'xkom tkqz vwgr mieh',  // Replace with your email password
+  },
+});
 
-    let mailOptions = {
-        from: process.env.EMAIL_USER,
-        to: 'krishnapriya18claysys@gmail.com', 
-        subject: 'Hello',
-        text: 'Hello Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survivedLoincluding versions of Lorem Ipsum.'
-    };
+// Set up email data
+const mailOptions = {
+  from: 'saaritha543@gmail.com', // Sender address
+  to: 'saritha.claysys@gmail.com',  // List of recipients
+  subject: 'Hello from Nodemailer', // Subject line
+  text: 'Hello, this is a test email sent using Nodemailer!', // Plain text body
+  // html: '<b>Hello, this is a test email sent using Nodemailer!</b>', // HTML body (optional)
+};
 
-    // Send the email
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            return console.log(error);
-        }
-        console.log('Email sent: ' + info.response);
-    });
-}
-
-sendEmail();
+// Send mail with defined transport object
+transporter.sendMail(mailOptions, (error, info) => {
+  if (error) {
+    return console.log(error);
+  }
+  console.log('Message sent: %s', info.messageId);
+});
